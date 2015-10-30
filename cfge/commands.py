@@ -1,9 +1,11 @@
 
-import cfge.engine
+import cfge.engine 
+
+sys = cfge.engine.System()
 
 def readtab(cmd, idcol=0, headers=None, sep=None) :
     r = {}
-    out = cfge.check_output(cmd).splitlines(True)
+    out = sys.check_output(cmd).splitlines(True)
 
     if headers == None:
         headers = out[0].decode().split(sep=sep)
@@ -13,7 +15,8 @@ def readtab(cmd, idcol=0, headers=None, sep=None) :
         key = data[idcol].lower().strip()
         r[key] = {}
         for index, item in enumerate(data) :
-            r[key][headers[index].lower().strip()] = item.strip();
+            r[key][headers[index].lower().strip()] = item.strip()
+
     return r
 
 def ps() :
