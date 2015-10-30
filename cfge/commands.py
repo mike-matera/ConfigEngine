@@ -1,11 +1,9 @@
 
-import cfge.engine 
-
-sys = cfge.engine.System()
+import cfge
 
 def readtab(cmd, idcol=0, headers=None, sep=None) :
     r = {}
-    out = sys.check_output(cmd).splitlines(True)
+    out = cfge.check_output(cmd).splitlines(True)
 
     if headers == None:
         headers = out[0].decode().split(sep=sep)
