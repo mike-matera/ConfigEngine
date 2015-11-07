@@ -3,7 +3,7 @@ import cfge
 import re
 
 def mounts() : 
-    out = cfge.check_output(["mount"])
+    out = cfge.instance().check_output(["mount"])
     mnt = {}
     mnt['by_device'] = {}
     mnt['by_mount'] = {}
@@ -15,7 +15,7 @@ def mounts() :
 
 def readtab(cmd, idcol=0, headers=None, sep=None) :
     r = {}
-    out = cfge.check_output(cmd).splitlines(True)
+    out = cfge.instance().check_output(cmd).splitlines(True)
 
     if headers == None:
         headers = out[0].decode().split(sep=sep)
