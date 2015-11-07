@@ -4,6 +4,8 @@ import sqlite3
 import atexit
 import tempfile 
 import zipimport 
+import random 
+import pickle 
 
 class DBSystem :
 
@@ -34,8 +36,24 @@ class DBSystem :
     def geteuid(self) : 
         return int(self.get_meta('euid'))
 
+    def input(self) : 
+        return self.get_blob('stdin')[0]
+
     def persist(self, filename) :    
         print ("db was persisted at this point.")
+
+    def seed(self) : 
+        s = self.get_meta('seed')
+        random.seed(s)
+
+    def getpid(self) :
+        return self.get_meta('pid')
+
+    def listdir(self, path) :
+        return pickle.loads(self.get_blob(path)[0]);
+
+    def readlink(self, path) :
+        return self.get_blob(path)[0]
 
     def get_blob(self, ref) :
         c = self.db.cursor()

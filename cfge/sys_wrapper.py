@@ -5,6 +5,8 @@ import shutil
 import atexit 
 import sqlite3
 import subprocess
+import random 
+import pickle
 
 class RealSystem :
     def __init__(self, wd) :
@@ -52,7 +54,32 @@ class RealSystem :
     def persist(self, filename) :    
         print ("persist!")
         shutil.make_archive(filename, 'zip', self.workdir)
-        
+
+    def input(self) : 
+        got = input()
+        self.set_blob('stdin', got, 0)
+        return got
+
+    def seed(self) : 
+        s = os.urandom(8)
+        self.set_meta('seed', s)
+        random.seed(s)
+
+    def getpid(self) :
+        pid = os.getpid()
+        self.set_meta('pid', pid)
+        return pid 
+
+    def listdir(self, path) :
+        contents = os.listdir(path)
+        self.set_blob(path, pickle.dumps(contents), 0)
+        return contents 
+
+    def readlink(self, path) :
+        l = os.readlink(path)
+        self.set_blob(path, l, 0)
+        return l
+
     def set_blob(self, ref, data, flags=0) :
         c = self.db.cursor()
         c.execute('''insert into blobs values (NULL, ?, ?, ?)''', [ref, data, flags])
