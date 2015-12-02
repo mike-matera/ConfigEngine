@@ -19,6 +19,10 @@ def instance() :
         try :
             dbdata = __loader__.get_data(os.path.join('cfge','resources.db'))
             __instance = db_wrapper.DBSystem(__workdir)
+            __instance.seed()
+
         except FileNotFoundError :
             __instance = sys_wrapper.RealSystem(__workdir)
+            __instance.seed()
+
     return __instance
