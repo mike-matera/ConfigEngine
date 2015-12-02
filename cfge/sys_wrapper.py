@@ -22,7 +22,6 @@ class RealSystem :
 
         self.dbpath = self.workdir + '/cfge/resources.db'
         self.db = sqlite3.connect(self.dbpath)
-        print("no resources, do it live!")
         c = self.db.cursor()
         c.execute('''create table meta (key text, value text)''')
         c.execute('''create table blobs (id integer primary key, ref text, data blob, flags integer)''')
@@ -50,7 +49,6 @@ class RealSystem :
         return euid
 
     def persist(self, filename) :    
-        print ("persist!")
         shutil.make_archive(filename, 'zip', self.workdir)
         
     def set_blob(self, ref, data, flags=0) :

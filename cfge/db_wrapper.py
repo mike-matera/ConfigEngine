@@ -9,8 +9,8 @@ class DBSystem :
 
     def __init__(self, wd) :
         # initialize db
-        print("using db")
-        print ("debug:", __file__)
+        #print("using db")
+        #print ("debug:", __file__)
         
         # make temporary
         self.workdir = wd
