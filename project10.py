@@ -39,8 +39,8 @@ def do_module() :
             print ("FOUND:", line.strip())
             return True
 
-        print ("ERROR: The scull driver is not loaded.")
-        return False
+    print ("ERROR: The scull driver is not loaded.")
+    return False
 
 score = 0 
 if do_kernel() : 
