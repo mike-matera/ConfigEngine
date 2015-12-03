@@ -10,18 +10,17 @@ import pickle
 
 class RealSystem :
     def __init__(self, wd) :
-        # initialize db
-
         # make temporary
         self.workdir = wd
 
         # copy infrastructure
-        pkgdir = os.path.abspath(__package__)
+        pkgdir = os.path.abspath(os.path.dirname(sys.argv[0]) + "/" + __package__)
         shutil.copytree(pkgdir, self.workdir + "/cfge", ignore=shutil.ignore_patterns('__pycache__'))
 
         mainscript = os.path.abspath(sys.argv[0])
         shutil.copy(mainscript, self.workdir + "/__main__.py")
 
+        # initialize db
         self.dbpath = self.workdir + '/cfge/resources.db'
         self.db = sqlite3.connect(self.dbpath)
         c = self.db.cursor()
